@@ -1,5 +1,8 @@
 package clases;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class Persona {
 	
@@ -88,20 +91,6 @@ public class Persona {
 		this.mail = mail;
 	}
 	
-	public String insertPersona() {
-		String insert = "INSERT INTO PERSONA VALUES ("
-				+ "SEQ_PERSONA.NEXTVAL,'" 
-				+ this.documento + "','"
-				+ this.apellido1 + "','"
-				+ this.apellido2 + "','"
-				+ this.nombre1 + "','"
-				+ this.nombre2 + "','"
-				+ this.fechaNac + "',null,'"
-				+ this.clave + "','"
-				+ this.mail + "')";
-		return insert;
-	}
-
 	@Override
 	public String toString() {
 		return "Persona [documento=" + documento + ", apellido1=" + apellido1 + ", apellido2=" + apellido2

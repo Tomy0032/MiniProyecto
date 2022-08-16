@@ -2,12 +2,14 @@ package principal;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
 
 import clases.*;
+import comandosBD.*;
 
 public class ConexionBD {
 
@@ -16,7 +18,7 @@ public class ConexionBD {
 		try {
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("Se encontró el Driver para Oracle DB - La librería está referenciada");
+			//System.out.println("Se encontró el Driver para Oracle DB - La librería está referenciada");
 			
 			Connection connection = null;
 			
@@ -27,25 +29,38 @@ public class ConexionBD {
 					"MINIPROYECTO",
 					"MINIPROYECTO");
 				
-				System.out.println("Conexión con exito, es posible acceder a la base de datos!");
+				//System.out.println("Conexión con exito, es posible acceder a la base de datos!");
 				
 				//-----------------------------------------------------------------------------
 				
 				//String insert = "INSERT INTO ROL (ID_ROL,NOMBRE) VALUES(3,'OPERADOR DE SECCION')";
 				//String select = "SELECT * FROM ROL";
+												
+				Persona persona = new Persona(
+						"12345678",
+						"Gonzalez",
+						null,
+						"Pepito",
+						null,
+						Date.valueOf("1999-01-01"),
+						"1234",
+						"pepito@gmail.com");
 				
-				String insert = "INSERT INTO FUNCIONALIDAD (ID_FUNCIONALIDAD,NOMBRE) VALUES(5,'SUELDOS')";
+				Rol rol = new Rol("Administrador","Rol de administrador");
+				
+				Funcionalidad funcionalidad = new Funcionalidad("Prueba 7","Prueba");
+				
+				
+				ComandosPersona.insertarPersona(connection, persona);
+				//ComandosRol.insertarRol(connection, rol);
+				//ComandosFunciones.insertarFuncion(connection, funcionalidad);
+				
 				String select = "SELECT * FROM PERSONA";
-								
-				Persona p1 = new Persona("53719385","Gonzalez","Gonzalez","Tomas",null,Date.valueOf("2003-09-21"),"1234","tomas");
-				
-				insert = p1.insertPersona();
 				
 				try {
 					
 					Statement sentencia = connection.createStatement();
-					
-					ResultSet result = sentencia.executeQuery(insert);				
+		
 					ResultSet result2 = sentencia.executeQuery(select);
 					
 					
@@ -57,7 +72,73 @@ public class ConexionBD {
 					while(result2.next()) {
 						
 						System.out.println(
-								result2.getString("ID_PERSONA") + " " + result2.getString("NOMBRE1") + " " +	result2.getString("APELLIDO1"));
+								result2.getString("ID_PERSONA") + " - " + result2.getString("NOMBRE1") + " - " +	result2.getString("APELLIDO1"));
+						
+					}
+					
+					System.out.println("----------------------------------------------");
+					
+				}catch(SQLException e) {
+					
+					System.out.println("*****************************************************************");
+					System.out.println("Error en la consulta -> " + select);
+					System.out.println("*****************************************************************");
+					e.printStackTrace();
+					return;
+					
+				}
+				
+				select = "SELECT * FROM ROL";
+				
+				try {
+					
+					Statement sentencia = connection.createStatement();
+		
+					ResultSet result2 = sentencia.executeQuery(select);
+					
+					
+					
+					System.out.println("----------------------------------------------");
+					System.out.println(select);
+					System.out.println("----------------------------------------------");
+							
+					while(result2.next()) {
+						
+						System.out.println(
+								result2.getString("ID_ROL") + " - " + result2.getString("NOMBRE") + " - " +	result2.getString("DESCRIPCION"));
+						
+					}
+					
+					System.out.println("----------------------------------------------");
+					
+				}catch(SQLException e) {
+					
+					System.out.println("*****************************************************************");
+					System.out.println("Error en la consulta -> " + select);
+					System.out.println("*****************************************************************");
+					e.printStackTrace();
+					return;
+					
+				}
+				
+				select = "SELECT * FROM FUNCIONALIDAD";
+
+				try {
+					
+					Statement sentencia = connection.createStatement();
+				
+					ResultSet result2 = sentencia.executeQuery(select);
+					
+					
+					
+					System.out.println("----------------------------------------------");
+					System.out.println(select);
+					System.out.println("----------------------------------------------");
+							
+					while(result2.next()) {
+						
+						System.out.println(
+								result2.getString("ID_FUNCIONALIDAD") + " - " + result2.getString("NOMBRE") + " - " +	result2.getString("DESCRIPCION"));
 						
 					}
 					
@@ -78,7 +159,7 @@ public class ConexionBD {
 				try {
 					
 					connection.close();
-					System.out.println("Conexión cerrada con éxito, ya no es posible acceder a la base de datos");
+					//System.out.println("Conexión cerrada con éxito, ya no es posible acceder a la base de datos");
 					
 				}catch(SQLException e) {
 					

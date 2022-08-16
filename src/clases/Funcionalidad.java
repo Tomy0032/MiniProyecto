@@ -26,8 +26,8 @@ public class Funcionalidad {
 		this.descripcion = descripcion;
 	}
 	
-	public String insertFuncionalidad() {
-		String insert = "INSERT INTO FUNCIONALIDAD VALUES (SEQ_FUNCIONALIDAD.NEXTVAL,'" + this.nombre + "','" + this.descripcion + "')";
+	public String insertarFuncionalidad() {
+		String insert = "INSERT INTO FUNCIONALIDAD VALUES (SEQ_FUNCIONALIDAD.NEXTVAL,?,?)";
 		return insert;
 	}
 

@@ -26,9 +26,9 @@ public class Rol {
 	boolean acceso(Persona p) {
 		return true;
 	}
-	
-	public String insertRol() {
-		String insert = "INSERT INTO ROL VALUES (SEQ_ROL.NEXTVAL,'" + this.nombre + "','" + this.descripcion + "')";
+
+	public String insertarRol() {
+		String insert = "INSERT INTO ROL VALUES (SEQ_FUNCIONALIDAD.NEXTVAL,?,?)";
 		return insert;
 	}
 	
