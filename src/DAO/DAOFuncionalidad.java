@@ -1,33 +1,27 @@
-package comandosBD;
+package DAO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import clases.Persona;
+import Classes.Funcionalidad;
 
-public class ComandosPersona {
-	
-	public static void insertarPersona(Connection connection, Persona p) {
+public class DAOFuncionalidad {
+
+	public static void insertarFuncion(Connection connection, Funcionalidad f) {
 		
-		String insert = "INSERT INTO PERSONA(ID_PERSONA,DOCUMENTO,APELLIDO1,APELLIDO2,NOMBRE1,NOMBRE2,FEC_NAC,CLAVE,MAIL) VALUES (SEQ_PERSONA.NEXTVAL,?,?,?,?,?,?,?,?)";
+		String insert = "INSERT INTO FUNCIONALIDAD(ID_FUNCIONALIDAD,NOMBRE,DESCRIPCION) VALUES (SEQ_FUNCIONALIDAD.NEXTVAL,?,?)";
 		
 		try {
 			
 			PreparedStatement sentencia = connection.prepareStatement(insert);
 			
-			sentencia.setString(1, p.getDocumento());
-			sentencia.setString(2, p.getApellido1());
-			sentencia.setString(3, p.getApellido2());
-			sentencia.setString(4, p.getNombre1());
-			sentencia.setString(5, p.getNombre2());
-			sentencia.setDate(6, p.getFechaNac());
-			sentencia.setString(7, p.getClave());
-			sentencia.setString(8, p.getMail());
+			sentencia.setString(1, f.getNombre());
+			sentencia.setString(2, f.getDescripcion());
 			
 			int resultado = sentencia.executeUpdate();
-			
 			System.out.println("*****************************************************************");
-			System.out.println("Se ha insertado una persona");
+			System.out.println("Se ha insertado una funcionalidad");
 			System.out.println("*****************************************************************");
 			
 		}catch(SQLException e) {
@@ -39,5 +33,4 @@ public class ComandosPersona {
 			
 		}
 	}
-
 }

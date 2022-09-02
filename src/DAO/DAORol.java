@@ -1,11 +1,11 @@
-package comandosBD;
+package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import clases.Rol;
+import Classes.Rol;
 
-public class ComandosRol {
+public class DAORol {
 
 	public static void insertarRol(Connection connection, Rol r) {
 		
