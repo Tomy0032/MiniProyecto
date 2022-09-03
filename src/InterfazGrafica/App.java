@@ -92,16 +92,6 @@ public class App extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panelGeneral = new JPanel();
-		panelGeneral.setBounds(10, 11, 707, 454);
-		contentPane.add(panelGeneral);
-		panelGeneral.setLayout(null);
-		
-		JPanel panelNav = new JPanel();
-		panelNav.setBounds(0, 0, 208, 454);
-		panelGeneral.add(panelNav);
-		panelGeneral.setVisible(false);
-		
 		
 		panelLogin = new JPanel();
 		panelLogin.setBackground(SystemColor.inactiveCaption);

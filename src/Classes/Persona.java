@@ -14,6 +14,7 @@ public class Persona {
 	private Date fechaNac;
 	private String clave;
 	private String mail;
+	private int idRol;
 	
 	public Persona(String documento, String apellido1, String apellido2, String nombre1, String nombre2, Date fechaNac,
 			String clave, String mail) {
@@ -90,12 +91,20 @@ public class Persona {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	
+		
+	public int getIdRol() {
+		return idRol;
+	}
+
+	public void setIdRol(int idRol) {
+		this.idRol = idRol;
+	}
+
 	@Override
 	public String toString() {
 		return "Persona [documento=" + documento + ", apellido1=" + apellido1 + ", apellido2=" + apellido2
 				+ ", nombre1=" + nombre1 + ", nombre2=" + nombre2 + ", fechaNac=" + fechaNac + ", clave=" + clave
-				+ ", mail=" + mail + "]";
+				+ ", mail=" + mail + ", idRol=" + idRol + "]";
 	}
 		
 }

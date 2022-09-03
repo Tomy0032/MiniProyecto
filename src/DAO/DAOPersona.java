@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
 
 import BDControl.DatabaseManager;
 import Classes.Persona;
@@ -17,6 +20,9 @@ public class DAOPersona {
 	
 	private final static
 	String COMPROBAR_LOGIN = "SELECT * FROM PERSONA WHERE MAIL=? AND CLAVE=?";
+	
+	private final static 
+	String FIND_ALL = "SELECT * FROM PERSONA";
 	
 	public static boolean insertarPersona(Persona p) {
 				
@@ -93,8 +99,39 @@ public class DAOPersona {
 		}catch(SQLException e) {
 			e.printStackTrace();
 			return null;			
+		}	
+	}
+	
+	public static LinkedList<Persona> findAll() {
+		
+		var salida = new LinkedList<Persona>();
+		Persona p;
+		try {
+			PreparedStatement sentencia = connection.prepareStatement(FIND_ALL);
+			ResultSet resultado = sentencia.executeQuery();
+			
+			while(resultado.next()) {
+				
+				
+				p = new Persona(resultado.getString("DOCUMENTO"),
+						        resultado.getString("APELLIDO1"),
+						        resultado.getString("APELLIDO2"),
+						        resultado.getString("NOMBRE1"),
+						        resultado.getString("NOMBRE2"),
+						        resultado.getDate("FEC_NAC"),
+						        resultado.getString("CLAVE"),
+						        resultado.getString("MAIL"));
+								p.setIdRol(resultado.getInt("ID_ROL"));
+				salida.add(p);
+						        
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "No funcionó la obtención de la lista de personas en DAOPersonas.", "Error!", JOptionPane.ERROR_MESSAGE);
+			
 		}
 		
+		return salida;
 	}
+	
 
 }
