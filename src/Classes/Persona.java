@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 public class Persona {
 	
+	private int idPersona;
 	private String documento;
 	private String apellido1;
 	private String apellido2;
@@ -26,6 +27,14 @@ public class Persona {
 		this.fechaNac = fechaNac;
 		this.clave = clave;
 		this.mail = mail;
+	}
+	
+	public int getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(int idPersona) {
+		this.idPersona = idPersona;
 	}
 
 	public String getDocumento() {

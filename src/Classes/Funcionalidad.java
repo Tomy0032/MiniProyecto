@@ -2,12 +2,21 @@ package Classes;
 
 public class Funcionalidad {
 
+	private int idFuncionalidad;
 	private String nombre;
 	private String descripcion;
 	
 	public Funcionalidad(String nombre, String descripcion) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+	}
+	
+	public int getIdFuncionalidad() {
+		return idFuncionalidad;
+	}
+
+	public void setIdFuncionalidad(int idFuncionalidad) {
+		this.idFuncionalidad = idFuncionalidad;
 	}
 
 	public String getNombre() {
