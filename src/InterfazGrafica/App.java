@@ -109,8 +109,7 @@ public class App extends JFrame {
 
 	public App() {
 		
-		System.out.println("Hola");
-		
+	
 		cargarRoles();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -440,6 +439,8 @@ public class App extends JFrame {
 		btnMostrar = new JButton("Mostrar todo");
 		btnMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnMostrar bt = new btnMostrar();
+				bt.mostrar();
 				
 			}
 		});
