@@ -13,10 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import BDControl.DatabaseManager;
+import Classes.Funcionalidad;
 import Classes.Persona;
 import Classes.Rol;
+import DAO.DAOFuncionalidad;
 import DAO.DAOPersona;
 import DAO.DAORol;
+import DAO.DAORolFuncionalidad;
 
 import java.awt.SystemColor;
 import javax.swing.JLabel;
@@ -83,6 +86,29 @@ public class App extends JFrame {
 	private JComboBox comboRoles = new JComboBox();
 	private JPanel panelMostar;
 	private JButton btnMostrar;
+	private JPanel panelRoles;
+	private JPanel containterRol;
+	private JLabel lblAgregarRol;
+	private JTextField textFieldNombreRol;
+	private JTextField textFieldDescripcionRol;
+	private JPanel panelRoles_1;
+	private JPanel containterRol_1;
+	private JLabel lblAgregarFuncionalidad;
+	private JTextField textFieldNombreFuncionalidad;
+	private JLabel lblNombreFuncionalidad;
+	private JLabel lblDescripcinFuncionalidad;
+	private JTextField textFieldDescripcionFuncionalidad;
+	private JButton btnAgregarFuncionalidad;
+	private JPanel panelMostar_1;
+	private JButton btnMostrarFuncionalidades;
+	private JLabel lblRolFuncionalidad;
+	private JComboBox comboRolesFuncionalidad = new JComboBox();
+	private JLabel lblCamposRol;
+	private JLabel lblErrorRol;
+	private JLabel lblRolAgregado;
+	private JLabel lblErrorFuncionalidad;
+	private JLabel lblCamposFuncionalidad;
+	private JLabel lblFuncionalidadAgregada;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -105,6 +131,7 @@ public class App extends JFrame {
 		}
 		nombreRoles = (String[]) listaRoles.toArray(new String[listaRoles.size()]);
 		comboRoles.setModel(new DefaultComboBoxModel(nombreRoles));
+		comboRolesFuncionalidad.setModel(new DefaultComboBoxModel(nombreRoles));
 	}
 
 	public App() {
@@ -113,7 +140,7 @@ public class App extends JFrame {
 		cargarRoles();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 743, 515);
+		setBounds(100, 100, 1041, 552);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -122,7 +149,7 @@ public class App extends JFrame {
 		
 		panelLogin = new JPanel();
 		panelLogin.setBackground(new Color(245, 255, 250));
-		panelLogin.setBounds(10, 11, 294, 338);
+		panelLogin.setBounds(10, 11, 294, 333);
 		contentPane.add(panelLogin);
 		panelLogin.setLayout(null);
 		
@@ -209,7 +236,7 @@ public class App extends JFrame {
 		
 		panelSignin = new JPanel();
 		panelSignin.setBackground(new Color(245, 255, 250));
-		panelSignin.setBounds(314, 11, 403, 454);
+		panelSignin.setBounds(314, 11, 403, 493);
 		contentPane.add(panelSignin);
 		panelSignin.setLayout(null);
 		
@@ -432,11 +459,11 @@ public class App extends JFrame {
 		
 		panelMostar = new JPanel();
 		panelMostar.setBackground(new Color(245, 255, 250));
-		panelMostar.setBounds(10, 360, 294, 105);
+		panelMostar.setBounds(10, 434, 294, 70);
 		contentPane.add(panelMostar);
 		panelMostar.setLayout(null);
 		
-		btnMostrar = new JButton("Mostrar todo");
+		btnMostrar = new JButton("Mostrar roles por persona");
 		btnMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnMostrar bt = new btnMostrar();
@@ -445,8 +472,227 @@ public class App extends JFrame {
 			}
 		});
 		btnMostrar.setBackground(SystemColor.control);
-		btnMostrar.setBounds(62, 41, 170, 23);
+		btnMostrar.setBounds(51, 23, 191, 23);
 		panelMostar.add(btnMostrar);
+		
+		panelRoles = new JPanel();
+		panelRoles.setBackground(new Color(245, 255, 250));
+		panelRoles.setBounds(727, 11, 288, 223);
+		contentPane.add(panelRoles);
+		panelRoles.setLayout(null);
+		
+		containterRol = new JPanel();
+		containterRol.setBackground(new Color(245, 255, 250));
+		containterRol.setBounds(34, 27, 219, 169);
+		panelRoles.add(containterRol);
+		containterRol.setLayout(null);
+		
+		lblAgregarRol = new JLabel("Agregar Rol");
+		lblAgregarRol.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAgregarRol.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblAgregarRol.setBounds(37, 0, 145, 22);
+		containterRol.add(lblAgregarRol);
+		
+		textFieldNombreRol = new JTextField();
+		textFieldNombreRol.setBounds(10, 48, 199, 20);
+		containterRol.add(textFieldNombreRol);
+		textFieldNombreRol.setColumns(10);
+		
+		JLabel lblNombreRol = new JLabel("Nombre");
+		lblNombreRol.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombreRol.setBounds(64, 33, 90, 14);
+		containterRol.add(lblNombreRol);
+		
+		JLabel lblDescripcinRol = new JLabel("Descripción");
+		lblDescripcinRol.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDescripcinRol.setBounds(64, 82, 90, 14);
+		containterRol.add(lblDescripcinRol);
+		
+		textFieldDescripcionRol = new JTextField();
+		textFieldDescripcionRol.setColumns(10);
+		textFieldDescripcionRol.setBounds(10, 97, 199, 20);
+		containterRol.add(textFieldDescripcionRol);
+		
+		JButton btnAgregarRol = new JButton("Enviar");
+		btnAgregarRol.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				boolean continuar = true;
+				lblCamposRol.setVisible(false);
+				lblErrorRol.setVisible(false);
+				lblRolAgregado.setVisible(false);
+				
+				String nombreRol = textFieldNombreRol.getText();
+				String descripcionRol = textFieldDescripcionRol.getText();
+				
+				if(nombreRol.equals("") && continuar) {
+					lblCamposRol.setVisible(true);
+					continuar = false;
+				}
+				if(descripcionRol.equals("") && continuar) {
+					lblCamposRol.setVisible(true);
+					continuar = false;
+				}
+				
+				if(continuar) {
+					Rol rol = new Rol(nombreRol,descripcionRol);
+					if(DAORol.insertarRol(rol)) {
+						lblRolAgregado.setVisible(true);
+						cargarRoles();
+					}else {
+						lblErrorRol.setVisible(true);
+					}
+				}
+			}
+		});
+		btnAgregarRol.setBounds(new Rectangle(0, 0, 0, 5));
+		btnAgregarRol.setBackground(SystemColor.menu);
+		btnAgregarRol.setBounds(62, 128, 95, 23);
+		containterRol.add(btnAgregarRol);
+		
+		lblCamposRol = new JLabel("Debe llenar todos los campos");
+		lblCamposRol.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCamposRol.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCamposRol.setForeground(new Color(255, 0, 0));
+		lblCamposRol.setBounds(34, 198, 219, 14);
+		lblCamposRol.setVisible(false);
+		panelRoles.add(lblCamposRol);
+		
+		lblErrorRol = new JLabel("El rol ya existe");
+		lblErrorRol.setHorizontalAlignment(SwingConstants.CENTER);
+		lblErrorRol.setForeground(new Color(255, 0, 0));
+		lblErrorRol.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblErrorRol.setBounds(10, 200, 268, 14);
+		lblErrorRol.setVisible(false);
+		panelRoles.add(lblErrorRol);
+		
+		lblRolAgregado = new JLabel("Rol agregado correctamente");
+		lblRolAgregado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRolAgregado.setForeground(new Color(50, 205, 50));
+		lblRolAgregado.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblRolAgregado.setBounds(17, 200, 254, 14);
+		lblRolAgregado.setVisible(false);
+		panelRoles.add(lblRolAgregado);
+		
+		panelRoles_1 = new JPanel();
+		panelRoles_1.setLayout(null);
+		panelRoles_1.setBackground(new Color(245, 255, 250));
+		panelRoles_1.setBounds(727, 245, 288, 259);
+		contentPane.add(panelRoles_1);
+		
+		containterRol_1 = new JPanel();
+		containterRol_1.setLayout(null);
+		containterRol_1.setBackground(new Color(245, 255, 250));
+		containterRol_1.setBounds(34, 11, 219, 218);
+		panelRoles_1.add(containterRol_1);
+		
+		lblAgregarFuncionalidad = new JLabel("Agregar Funcionalidad");
+		lblAgregarFuncionalidad.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAgregarFuncionalidad.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblAgregarFuncionalidad.setBounds(10, 11, 199, 22);
+		containterRol_1.add(lblAgregarFuncionalidad);
+		
+		textFieldNombreFuncionalidad = new JTextField();
+		textFieldNombreFuncionalidad.setColumns(10);
+		textFieldNombreFuncionalidad.setBounds(10, 59, 199, 20);
+		containterRol_1.add(textFieldNombreFuncionalidad);
+		
+		lblNombreFuncionalidad = new JLabel("Nombre");
+		lblNombreFuncionalidad.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombreFuncionalidad.setBounds(64, 44, 90, 14);
+		containterRol_1.add(lblNombreFuncionalidad);
+		
+		lblDescripcinFuncionalidad = new JLabel("Descripción");
+		lblDescripcinFuncionalidad.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDescripcinFuncionalidad.setBounds(64, 93, 90, 14);
+		containterRol_1.add(lblDescripcinFuncionalidad);
+		
+		textFieldDescripcionFuncionalidad = new JTextField();
+		textFieldDescripcionFuncionalidad.setColumns(10);
+		textFieldDescripcionFuncionalidad.setBounds(10, 108, 199, 20);
+		containterRol_1.add(textFieldDescripcionFuncionalidad);
+		
+		btnAgregarFuncionalidad = new JButton("Enviar");
+		btnAgregarFuncionalidad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				boolean continuar = true;
+				lblCamposFuncionalidad.setVisible(false);
+				lblErrorFuncionalidad.setVisible(false);
+				lblFuncionalidadAgregada.setVisible(false);
+				
+				String nombreFuncionalidad = textFieldNombreFuncionalidad.getText();
+				String descripcionFuncionalidad = textFieldDescripcionFuncionalidad.getText();
+				String nombreRol = (String)comboRolesFuncionalidad.getSelectedItem().toString();
+				
+				if(nombreFuncionalidad.equals("") && continuar) {
+					lblCamposRol.setVisible(true);
+					continuar = false;
+				}
+				if(descripcionFuncionalidad.equals("") && continuar) {
+					lblCamposRol.setVisible(true);
+					continuar = false;
+				}
+				
+				if(continuar) {
+					Funcionalidad funcionalidad = new Funcionalidad(nombreFuncionalidad,descripcionFuncionalidad);
+					if(DAOFuncionalidad.insertarFuncion(funcionalidad)) {
+						lblFuncionalidadAgregada.setVisible(true);
+						DAORolFuncionalidad.insertar(DAORol.buscarNombreRol(nombreRol), DAOFuncionalidad.buscarNombreFuncionalidad(nombreFuncionalidad));
+						cargarRoles();
+					}else {
+						lblErrorFuncionalidad.setVisible(true);
+					}
+				}
+			}
+		});
+		btnAgregarFuncionalidad.setBounds(new Rectangle(0, 0, 0, 5));
+		btnAgregarFuncionalidad.setBackground(SystemColor.menu);
+		btnAgregarFuncionalidad.setBounds(62, 192, 95, 23);
+		containterRol_1.add(btnAgregarFuncionalidad);
+		
+		lblRolFuncionalidad = new JLabel("Rol");
+		lblRolFuncionalidad.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRolFuncionalidad.setBounds(10, 139, 199, 14);
+		containterRol_1.add(lblRolFuncionalidad);
+		
+		comboRolesFuncionalidad.setBounds(10, 153, 199, 20);
+		containterRol_1.add(comboRolesFuncionalidad);
+		
+		lblErrorFuncionalidad = new JLabel("Ya existe la funcionalidad");
+		lblErrorFuncionalidad.setForeground(new Color(255, 0, 0));
+		lblErrorFuncionalidad.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblErrorFuncionalidad.setHorizontalAlignment(SwingConstants.CENTER);
+		lblErrorFuncionalidad.setBounds(27, 234, 233, 14);
+		lblErrorFuncionalidad.setVisible(false);
+		panelRoles_1.add(lblErrorFuncionalidad);
+		
+		lblCamposFuncionalidad = new JLabel("Debe llenar todos los campos");
+		lblCamposFuncionalidad.setForeground(new Color(255, 0, 0));
+		lblCamposFuncionalidad.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCamposFuncionalidad.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCamposFuncionalidad.setBounds(15, 236, 258, 14);
+		lblCamposFuncionalidad.setVisible(false);
+		panelRoles_1.add(lblCamposFuncionalidad);
+		
+		lblFuncionalidadAgregada = new JLabel("Funcionalidad agregada correctamente");
+		lblFuncionalidadAgregada.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFuncionalidadAgregada.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblFuncionalidadAgregada.setForeground(new Color(50, 205, 50));
+		lblFuncionalidadAgregada.setBounds(12, 236, 263, 14);
+		lblFuncionalidadAgregada.setVisible(false);
+		panelRoles_1.add(lblFuncionalidadAgregada);
+		
+		panelMostar_1 = new JPanel();
+		panelMostar_1.setLayout(null);
+		panelMostar_1.setBackground(new Color(245, 255, 250));
+		panelMostar_1.setBounds(10, 353, 294, 70);
+		contentPane.add(panelMostar_1);
+		
+		btnMostrarFuncionalidades = new JButton("Mostrar funcionalidades");
+		btnMostrarFuncionalidades.setBackground(SystemColor.menu);
+		btnMostrarFuncionalidades.setBounds(51, 23, 191, 23);
+		panelMostar_1.add(btnMostrarFuncionalidades);
 		
 	}
 }
