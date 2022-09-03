@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,13 +14,16 @@ import javax.swing.border.EmptyBorder;
 
 import BDControl.DatabaseManager;
 import Classes.Persona;
+import Classes.Rol;
 import DAO.DAOPersona;
+import DAO.DAORol;
 
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Component;
@@ -28,9 +33,13 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JToggleButton;
 import javax.swing.JPasswordField;
+import javax.swing.JComboBox;
 
 public class App extends JFrame {
 
+	private LinkedList<Rol> roles = null;
+	private ArrayList listaRoles = null;
+	private String[] nombreRoles = null;
 	private Persona usuario;
 	private JPanel contentPane;
 	private Connection connection = DatabaseManager.getConnection();
@@ -70,6 +79,7 @@ public class App extends JFrame {
 	private JLabel lblCorrectInsert;
 	private JLabel lblErrorCamposLogin;
 	private JLabel lblErrorLogin;
+	private JComboBox comboRoles = new JComboBox();;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -83,8 +93,20 @@ public class App extends JFrame {
 			}
 		});
 	}
+	
+	public void cargarRoles() {
+		roles = DAORol.findAll();
+		listaRoles = new ArrayList<>();
+		for(Rol r : roles) {
+			listaRoles.add(r.getNombre());
+		}
+		nombreRoles = (String[]) listaRoles.toArray(new String[listaRoles.size()]);
+		comboRoles.setModel(new DefaultComboBoxModel(nombreRoles));
+	}
 
 	public App() {
+		cargarRoles();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 743, 515);
 		contentPane = new JPanel();
@@ -359,6 +381,9 @@ public class App extends JFrame {
 		textFieldApellido1Signin.setBounds(13, 148, 152, 20);
 		signinContainer.add(textFieldApellido1Signin);
 		textFieldApellido1Signin.setColumns(10);
+		
+		comboRoles.setBounds(185, 238, 152, 20);
+		signinContainer.add(comboRoles);
 		
 		lblErrorPassword = new JLabel("Las contraseñas no coinciden");
 		lblErrorPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
