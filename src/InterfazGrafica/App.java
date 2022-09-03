@@ -20,6 +20,7 @@ import DAO.DAORol;
 
 import java.awt.SystemColor;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -107,6 +108,9 @@ public class App extends JFrame {
 	}
 
 	public App() {
+		
+		System.out.println("Hola");
+		
 		cargarRoles();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -167,8 +171,7 @@ public class App extends JFrame {
 				}
 				if(continuar) {
 					if(DAOPersona.comprobarLogin(mail, clave)) {
-						panelLogin.setVisible(false);
-						panelSignin.setVisible(false);
+						JOptionPane.showMessageDialog(null, "Sesión iniciada correctamente");
 					}else {
 						lblErrorLogin.setVisible(true);
 					}
@@ -435,6 +438,11 @@ public class App extends JFrame {
 		panelMostar.setLayout(null);
 		
 		btnMostrar = new JButton("Mostrar todo");
+		btnMostrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnMostrar.setBackground(SystemColor.control);
 		btnMostrar.setBounds(62, 41, 170, 23);
 		panelMostar.add(btnMostrar);
