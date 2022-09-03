@@ -690,6 +690,13 @@ public class App extends JFrame {
 		contentPane.add(panelMostar_1);
 		
 		btnMostrarFuncionalidades = new JButton("Mostrar funcionalidades");
+		btnMostrarFuncionalidades.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnMostrarFunc bt= new btnMostrarFunc();
+				bt.mostrar();
+				
+			}
+		});
 		btnMostrarFuncionalidades.setBackground(SystemColor.menu);
 		btnMostrarFuncionalidades.setBounds(51, 23, 191, 23);
 		panelMostar_1.add(btnMostrarFuncionalidades);

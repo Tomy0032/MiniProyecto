@@ -14,8 +14,8 @@ public class DAORol {
 	private static final String UPDATE_ROL = "UPDATE ROL SET DESCRIPCION=? WHERE NOMBRE=?";
 	private static final String DELETE_ROL = "DELETE FROM ROL WHERE NOMBRE=?";
 	private static final String ALL_ROLES = "SELECT * FROM ROL";
-	private static final String BUSCAR_NOMBRE = "SELECT * FROM ROL WHERE NOMBRE=?";
-	private static final String BUSCAR_ID = "SELECT * FROM ROL WHERE ID_ROL=?";
+	private static final String BUSCAR_NOMBRE = "SELECT * FROM ROL WHERE NOMBRE=? ORDER BY NOMBRE";
+	private static final String BUSCAR_ID = "SELECT * FROM ROL WHERE ID_ROL=? ORDER BY NOMBRE";
 	
 	public static boolean insertarRol(/*Connection connection,*/ Rol r) {
 			try {

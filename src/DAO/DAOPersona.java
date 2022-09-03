@@ -22,7 +22,7 @@ public class DAOPersona {
 	String COMPROBAR_LOGIN = "SELECT * FROM PERSONA WHERE MAIL=? AND CLAVE=?";
 	
 	private final static 
-	String FIND_ALL = "SELECT * FROM PERSONA";
+	String FIND_ALL = "SELECT * FROM PERSONA ORDER BY NOMBRE1";
 	
 	public static boolean insertarPersona(Persona p) {
 				
