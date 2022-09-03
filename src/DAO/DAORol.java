@@ -81,30 +81,30 @@ public class DAORol {
 				
 		}
 			
-		public static LinkedList<Rol> findAll(){
+			public static LinkedList<Rol> findAll(){
+					
+				LinkedList<Rol> roles = new LinkedList<>();
+				Rol rol = null;
 				
-			LinkedList<Rol> roles = new LinkedList<>();
-			Rol rol = null;
-			
-			try {
-				PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(ALL_ROLES);
-				
-				ResultSet resultado = statement.executeQuery();
-				
-				while(resultado.next()) {
-					rol = new Rol(resultado.getString("NOMBRE"),resultado.getString("DESCRIPCION"));
-					rol.setIdRol(resultado.getInt("ID_ROL"));
-					roles.add(rol);
+				try {
+					PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(ALL_ROLES);
+					
+					ResultSet resultado = statement.executeQuery();
+					
+					while(resultado.next()) {
+						rol = new Rol(resultado.getString("NOMBRE"),resultado.getString("DESCRIPCION"));
+						rol.setIdRol(resultado.getInt("ID_ROL"));
+						roles.add(rol);
+					}
+					
+					return roles;
+					
+				}catch(SQLException e) {
+					e.printStackTrace();
+					return null;
 				}
 				
-				return roles;
-				
-			}catch(SQLException e) {
-				e.printStackTrace();
-				return null;
 			}
-			
-		}
 
 }
 	

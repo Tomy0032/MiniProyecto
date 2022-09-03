@@ -1,17 +1,20 @@
 package DAO;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import BDControl.DatabaseManager;
 import Classes.Funcionalidad;
+import Classes.Rol;
 
 public class DAOFuncionalidad {
 	
 	private static final String INSERTAR = "INSERT INTO FUNCIONALIDAD(ID_FUNCIONALIDAD,NOMBRE,DESCRIPCION) VALUES (SEQ_FUNCIONALIDAD.NEXTVAL,?,?)";
 	private static final String ELIMINAR_FUNCIONALIDAD = "DELETE FROM FUNCIONALIDAD WHERE NOMBRE = ?";
 	private static final String MODIFICAR_FUNCIONALIDAD = "UPDATE FUNCIONALIDAD SET DESCRIIPCION = ? WHERE NOMBRE = ?";
-	
+	private static final String ALL_FUNCIONALIDADES = "SELECT * FROM FUNCIONALIDAD";
 	
 	public static boolean insertarFuncion(Funcionalidad f){
 		
@@ -67,6 +70,31 @@ public class DAOFuncionalidad {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public static LinkedList<Funcionalidad> findAll(){
+		
+		LinkedList<Funcionalidad> funcionalidades = new LinkedList<>();
+		Funcionalidad funcionalidad = null;
+		
+		try {
+			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(ALL_FUNCIONALIDADES);
+			
+			ResultSet resultado = statement.executeQuery();
+			
+			while(resultado.next()) {
+				funcionalidad = new Funcionalidad(resultado.getString("NOMBRE"),resultado.getString("DESCRIPCION"));
+				funcionalidad.setIdFuncionalidad(resultado.getInt("ID_FUNCIONALIDAD"));
+				funcionalidades.add(funcionalidad);
+			}
+			
+			return funcionalidades;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	
 }
