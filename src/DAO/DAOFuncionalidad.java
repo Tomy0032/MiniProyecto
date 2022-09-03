@@ -16,6 +16,7 @@ public class DAOFuncionalidad {
 	private static final String MODIFICAR_FUNCIONALIDAD = "UPDATE FUNCIONALIDAD SET DESCRIIPCION = ? WHERE NOMBRE = ?";
 	private static final String ALL_FUNCIONALIDADES = "SELECT * FROM FUNCIONALIDAD";
 	private static final String BUSCAR_NOMBRE = "SELECT * FROM FUNCIONALIDAD WHERE NOMBRE=?";
+	private static final String BUSCAR_ID = "SELECT * FROM ROL WHERE ID_FUNCIONALIDAD=?";
 	
 	public static boolean insertarFuncion(Funcionalidad f){
 		
@@ -105,6 +106,29 @@ public class DAOFuncionalidad {
 		try {
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(BUSCAR_NOMBRE);
 			statement.setString(1, nombre);
+			ResultSet resultado = statement.executeQuery();
+			
+			while(resultado.next()) {
+				funcionalidad = new Funcionalidad(resultado.getString("NOMBRE"),resultado.getString("DESCRIPCION"));
+				funcionalidad.setIdFuncionalidad(resultado.getInt("ID_FUNCIONALIDAD"));
+			}
+			
+			return funcionalidad;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public static Funcionalidad buscarIdFuncionalidad(int idFuncionalidad){
+		
+		Funcionalidad funcionalidad = null;
+		
+		try {
+			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(BUSCAR_ID);
+			statement.setInt(1, idFuncionalidad);
 			ResultSet resultado = statement.executeQuery();
 			
 			while(resultado.next()) {
