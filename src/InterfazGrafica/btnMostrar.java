@@ -10,7 +10,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Classes.Persona;
+import Classes.Rol;
 import DAO.DAOPersona;
+import DAO.DAORol;
 
 
 public class btnMostrar {
@@ -35,16 +37,18 @@ public void mostrar() {
 			
 					LinkedList<Persona> todasPersonas = DAOPersona.findAll();
 					
+					Rol rol = null;
+					
 					for (int i=0;i<todasPersonas.size();i++){
 						
 						String nombre = todasPersonas.get(i).getNombre1();
 						String apellido = todasPersonas.get(i).getApellido1();
 						int idRol = todasPersonas.get(i).getIdRol();
-						
+						rol = DAORol.buscarIdRol(idRol);
 					
 						fila[0] = nombre;
 						fila[1] = apellido;
-						fila[2] = idRol;
+						fila[2] = rol.getNombre();						
 					
 						modelo.addRow(fila); 
 					}

@@ -67,7 +67,7 @@ public class App extends JFrame {
 	private JLabel lblNombre2Signin;
 	private JTextField textFieldNombre2Signin;
 	private JLabel lblPassword1Signin;
-	private JTextField passwordFieldPassword1Signin;
+	private JPasswordField passwordFieldPassword1Signin;
 	private JLabel lblPassword2Signin;
 	private JPasswordField passwordFieldPassword2Signin;
 	private JLabel lblNacimientoSignin;
@@ -335,7 +335,7 @@ public class App extends JFrame {
 		lblPassword1Signin.setBounds(13, 179, 152, 14);
 		signinContainer.add(lblPassword1Signin);
 		
-		passwordFieldPassword1Signin = new JTextField();
+		passwordFieldPassword1Signin = new JPasswordField();
 		passwordFieldPassword1Signin.setColumns(10);
 		passwordFieldPassword1Signin.setBounds(13, 193, 152, 20);
 		signinContainer.add(passwordFieldPassword1Signin);
