@@ -14,6 +14,7 @@ public class DAORol {
 	private static final String UPDATE_ROL = "UPDATE ROL SET DESCRIPCION=? WHERE NOMBRE=?";
 	private static final String DELETE_ROL = "DELETE FROM ROL WHERE NOMBRE=?";
 	private static final String ALL_ROLES = "SELECT * FROM ROL";
+	private static final String BUSCAR_NOMBRE = "SELECT * FROM ROL WHERE NOMBRE=?";
 	
 	public static boolean insertarRol(/*Connection connection,*/ Rol r) {
 			try {
@@ -98,6 +99,29 @@ public class DAORol {
 					}
 					
 					return roles;
+					
+				}catch(SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+				
+			}
+			
+			public static Rol buscarNombreRol(String nombre){
+				
+				Rol rol = null;
+				
+				try {
+					PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(BUSCAR_NOMBRE);
+					statement.setString(1, nombre);
+					ResultSet resultado = statement.executeQuery();
+					
+					while(resultado.next()) {
+						rol = new Rol(resultado.getString("NOMBRE"),resultado.getString("DESCRIPCION"));
+						rol.setIdRol(resultado.getInt("ID_ROL"));
+					}
+					
+					return rol;
 					
 				}catch(SQLException e) {
 					e.printStackTrace();

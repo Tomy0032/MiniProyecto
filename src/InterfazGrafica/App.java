@@ -79,7 +79,9 @@ public class App extends JFrame {
 	private JLabel lblCorrectInsert;
 	private JLabel lblErrorCamposLogin;
 	private JLabel lblErrorLogin;
-	private JComboBox comboRoles = new JComboBox();;
+	private JComboBox comboRoles = new JComboBox();
+	private JPanel panelMostar;
+	private JButton btnMostrar;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -116,15 +118,15 @@ public class App extends JFrame {
 		
 		
 		panelLogin = new JPanel();
-		panelLogin.setBackground(SystemColor.inactiveCaption);
-		panelLogin.setBounds(10, 11, 294, 454);
+		panelLogin.setBackground(new Color(245, 255, 250));
+		panelLogin.setBounds(10, 11, 294, 338);
 		contentPane.add(panelLogin);
 		panelLogin.setLayout(null);
 		
 		
 		loginContainer = new JPanel();
-		loginContainer.setBackground(SystemColor.inactiveCaption);
-		loginContainer.setBounds(57, 128, 179, 197);
+		loginContainer.setBackground(new Color(245, 255, 250));
+		loginContainer.setBounds(57, 70, 179, 197);
 		panelLogin.add(loginContainer);
 		loginContainer.setLayout(null);
 		
@@ -191,7 +193,7 @@ public class App extends JFrame {
 		lblErrorCamposLogin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblErrorCamposLogin.setForeground(new Color(255, 0, 0));
 		lblErrorCamposLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		lblErrorCamposLogin.setBounds(30, 336, 233, 14);
+		lblErrorCamposLogin.setBounds(30, 284, 233, 14);
 		lblErrorCamposLogin.setVisible(false);
 		panelLogin.add(lblErrorCamposLogin);
 		
@@ -199,19 +201,19 @@ public class App extends JFrame {
 		lblErrorLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblErrorLogin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblErrorLogin.setForeground(new Color(255, 0, 0));
-		lblErrorLogin.setBounds(20, 336, 253, 14);
+		lblErrorLogin.setBounds(20, 284, 253, 14);
 		lblErrorLogin.setVisible(false);
 		panelLogin.add(lblErrorLogin);
 		
 		panelSignin = new JPanel();
-		panelSignin.setBackground(SystemColor.inactiveCaption);
+		panelSignin.setBackground(new Color(245, 255, 250));
 		panelSignin.setBounds(314, 11, 403, 454);
 		contentPane.add(panelSignin);
 		panelSignin.setLayout(null);
 		
 		signinContainer = new JPanel();
 		signinContainer.setLayout(null);
-		signinContainer.setBackground(SystemColor.inactiveCaption);
+		signinContainer.setBackground(new Color(245, 255, 250));
 		signinContainer.setBounds(28, 65, 347, 323);
 		panelSignin.add(signinContainer);
 				
@@ -244,6 +246,8 @@ public class App extends JFrame {
 				String mail = textFieldMailSignin.getText();
 				String clave1 = passwordFieldPassword1Signin.getText();
 				String clave2 = passwordFieldPassword2Signin.getText();
+				String nombreRol = (String)comboRoles.getSelectedItem().toString();
+				int idRol = DAORol.buscarNombreRol(nombreRol).getIdRol();
 				
 				if(dateChooserNacimientoSignin.getDate() != null) {
 					
@@ -280,6 +284,7 @@ public class App extends JFrame {
 					
 					if(continuar) {
 						Persona p = new Persona(documento,apellido1,apellido2,nombre1,nombre2,fechaNac,clave1,mail);
+						p.setIdRol(idRol);
 						if(DAOPersona.insertarPersona(p)) {
 							lblCorrectInsert.setVisible(true);
 						}else {
@@ -325,7 +330,7 @@ public class App extends JFrame {
 		
 		lblPassword1Signin = new JLabel("*Constraseña");
 		lblPassword1Signin.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPassword1Signin.setBounds(52, 179, 74, 14);
+		lblPassword1Signin.setBounds(13, 179, 152, 14);
 		signinContainer.add(lblPassword1Signin);
 		
 		passwordFieldPassword1Signin = new JTextField();
@@ -335,7 +340,7 @@ public class App extends JFrame {
 		
 		lblPassword2Signin = new JLabel("*Repetir contraseña");
 		lblPassword2Signin.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPassword2Signin.setBounds(198, 179, 126, 14);
+		lblPassword2Signin.setBounds(185, 179, 152, 14);
 		signinContainer.add(lblPassword2Signin);
 		
 		passwordFieldPassword2Signin = new JPasswordField();
@@ -385,6 +390,11 @@ public class App extends JFrame {
 		comboRoles.setBounds(185, 238, 152, 20);
 		signinContainer.add(comboRoles);
 		
+		JLabel lblRol = new JLabel("Rol");
+		lblRol.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRol.setBounds(185, 224, 152, 14);
+		signinContainer.add(lblRol);
+		
 		lblErrorPassword = new JLabel("Las contraseñas no coinciden");
 		lblErrorPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblErrorPassword.setHorizontalAlignment(SwingConstants.CENTER);
@@ -417,6 +427,17 @@ public class App extends JFrame {
 		lblCorrectInsert.setBounds(52, 399, 298, 14);
 		lblCorrectInsert.setVisible(false);
 		panelSignin.add(lblCorrectInsert);
+		
+		panelMostar = new JPanel();
+		panelMostar.setBackground(new Color(245, 255, 250));
+		panelMostar.setBounds(10, 360, 294, 105);
+		contentPane.add(panelMostar);
+		panelMostar.setLayout(null);
+		
+		btnMostrar = new JButton("Mostrar todo");
+		btnMostrar.setBackground(SystemColor.control);
+		btnMostrar.setBounds(62, 41, 170, 23);
+		panelMostar.add(btnMostrar);
 		
 	}
 }

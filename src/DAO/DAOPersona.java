@@ -16,7 +16,7 @@ public class DAOPersona {
 	private static Connection connection = DatabaseManager.getConnection();
 	
 	private final static
-	String INSERTAR_PERSONA = "INSERT INTO PERSONA(ID_PERSONA,DOCUMENTO,APELLIDO1,APELLIDO2,NOMBRE1,NOMBRE2,FEC_NAC,CLAVE,MAIL) VALUES (SEQ_PERSONA.NEXTVAL,?,?,?,?,?,?,?,?)";
+	String INSERTAR_PERSONA = "INSERT INTO PERSONA(ID_PERSONA,DOCUMENTO,APELLIDO1,APELLIDO2,NOMBRE1,NOMBRE2,FEC_NAC,CLAVE,MAIL,ID_ROL) VALUES (SEQ_PERSONA.NEXTVAL,?,?,?,?,?,?,?,?,?)";
 	
 	private final static
 	String COMPROBAR_LOGIN = "SELECT * FROM PERSONA WHERE MAIL=? AND CLAVE=?";
@@ -38,6 +38,7 @@ public class DAOPersona {
 			sentencia.setDate(6, p.getFechaNac());
 			sentencia.setString(7, p.getClave());
 			sentencia.setString(8, p.getMail());
+			sentencia.setInt(9, p.getIdRol());
 			
 			int resultado = sentencia.executeUpdate();
 			
